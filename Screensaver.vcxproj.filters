@@ -32,9 +32,6 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StepTimer.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="CPURenderer.h">
       <Filter>Source Files</Filter>
     </ClInclude>

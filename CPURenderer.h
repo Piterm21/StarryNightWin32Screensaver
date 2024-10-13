@@ -1,9 +1,6 @@
 #pragma once
 
-#define WIN32_LEAN_AND_MEAN 1
-#include "Windows.h"
-#undef WIN32_LEAN_AND_MEAN
-#include <stdint.h>
+#include "Globals.h"
 
 class CPURenderer
 {
@@ -50,7 +47,7 @@ public:
     Color GetColor() const;
     
     //Used to determine if Star should tick/render
-    float RemainingLiftime = 0.0f;
+    float RemainingLifetime = 0.0f;
 
 private:
 

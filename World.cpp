@@ -1,7 +1,5 @@
 #include "World.h"
 
-#include <cstdlib>
-
 World::World(uint32_t InWorldWidth, uint32_t InWorldHeight, uint32_t MaxStarCount)
 {
     WorldWidth = InWorldWidth;
@@ -26,7 +24,7 @@ void World::Tick(float DeltaTime, CPURenderer& RenderBuffer)
     uint32_t StarCountBelowMax = StarsMax - ActiveStarsCount;
     if (StarCountBelowMax > 0)
     {
-        StarsToAdd = (uint32_t)(((float)rand() / (float)RAND_MAX) * StarsMax * MaxPercentSpawnRate);
+        StarsToAdd = (uint32_t)(RandomFloat() * StarsMax * MaxPercentSpawnRate);
         if (StarsToAdd == 0)
         {
             StarsToAdd = (uint32_t)((float)StarsMax * (MaxPercentSpawnRate * 0.5f));
@@ -53,12 +51,12 @@ void World::Tick(float DeltaTime, CPURenderer& RenderBuffer)
         Star& ActiveStar = ActiveStarsArray[Index];
 
         //If star is "alive" tick and render
-        if (ActiveStar.RemainingLiftime > 0.0f)
+        if (ActiveStar.RemainingLifetime > 0.0f)
         {
             ActiveStar.Tick(DeltaTime);
             ActiveStar.Render(RenderBuffer);
 
-            if (ActiveStar.RemainingLiftime <= 0.0f)
+            if (ActiveStar.RemainingLifetime <= 0.0f)
             {
                 ActiveStarsCount--;
             }

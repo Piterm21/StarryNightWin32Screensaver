@@ -1,48 +1,41 @@
 #include "CPURenderer.h"
 
-#include <cstdlib>
-
 #define STAR_EXPANSION_FREQUENCY 0.1f
-
-static inline float GetRandom0To1()
-{
-    return (float)rand() / (float)RAND_MAX;
-}
 
 void Star::Initialize(uint32_t WorldWidth, uint32_t WorldHeight, uint32_t InMaxSize, float InMaxLifetime)
 {
-    XPos = (uint32_t)(GetRandom0To1() * (WorldWidth - 1));
-    YPos = (uint32_t)(GetRandom0To1() * (WorldHeight - 1));
+    XPos = (uint32_t)(RandomFloat() * (WorldWidth - 1));
+    YPos = (uint32_t)(RandomFloat() * (WorldHeight - 1));
     
-    Size = (uint32_t)(GetRandom0To1() * (InMaxSize));
+    Size = (uint32_t)(RandomFloat() * (InMaxSize));
     if (Size == 0)
     {
         Size = 1;
     }
     
-    bShouldProgress = GetRandom0To1() <= STAR_EXPANSION_FREQUENCY;
+    bShouldProgress = RandomFloat() <= STAR_EXPANSION_FREQUENCY;
     Shape = StarShape::Square;
 
-    MaxLifetime = GetRandom0To1() * InMaxLifetime;
+    MaxLifetime = RandomFloat() * InMaxLifetime;
     //Clamp to 0.25 of InMaxLifetime at the minimum
     if (MaxLifetime < InMaxLifetime * 0.25f)
     {
         MaxLifetime = InMaxLifetime * 0.25f;
     }
 
-    RemainingLiftime = MaxLifetime;
+    RemainingLifetime = MaxLifetime;
 }
 
 void Star::Tick(float DeltaTime)
 {
-    RemainingLiftime -= DeltaTime;
+    RemainingLifetime -= DeltaTime;
 
     if (!bShouldProgress)
     {
         return;
     }
 
-    float RemiainingLifetimePercent = RemainingLiftime / MaxLifetime;
+    float RemiainingLifetimePercent = RemainingLifetime / MaxLifetime;
     //There probably is a better way to handle expansion thresholds, but can't think of it right now
     if ((ExpandStage == 0 && RemiainingLifetimePercent <= 0.4f) 
         || (ExpandStage == 1 && RemiainingLifetimePercent <= 0.3f) 
@@ -92,7 +85,7 @@ void Star::Tick(float DeltaTime)
 
 Color Star::GetColor() const
 {
-    float RemiainingLifetimePercent = RemainingLiftime / MaxLifetime;
+    float RemiainingLifetimePercent = RemainingLifetime / MaxLifetime;
 
     if (RemiainingLifetimePercent <= 0.0f)
     {
@@ -109,7 +102,7 @@ Color Star::GetColor() const
 
 void Star::Render(CPURenderer& Renderer) const
 {
-    if (RemainingLiftime <= 0.0f)
+    if (RemainingLifetime <= 0.0f)
     {
         return;
     }

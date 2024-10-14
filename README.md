@@ -1,3 +1,5 @@
+Windows implemented screensaver, without dependency on msvc runtime, or scrnsave.lib
+
 By default running the program through visual studio opens the configuration window.
 To start actual screen saver output .scr file needs to be ran outside of visual studio, or inside visual studio with -s parameter.
 
